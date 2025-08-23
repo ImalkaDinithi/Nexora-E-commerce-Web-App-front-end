@@ -41,20 +41,24 @@ function ShippingAddressForm() {
   const [createOrder, { isLoading }] = useCreateOrderMutation();
   console.log(cart);
 
-  async function onSubmit(values) {
-    try {
-      await createOrder({
-        shippingAddress: values,
-        orderItems: cart.map((item) => ({
-          productId: item.product._id,
-          quantity: item.quantity,
-        })),
-      }).unwrap();
-      navigate(`/shop/payment?orderId=${order._id}`);
-    } catch (error) {
-      console.log(error);
-    }
+async function onSubmit(values) {
+  try {
+    const response = await createOrder({
+      shippingAddress: values,
+      orderItems: cart.map((item) => ({
+        productId: item.product._id,
+        quantity: item.quantity,
+      })),
+    }).unwrap();
+
+    // Navigate using the actual order ID
+    navigate(`/shop/payment?orderId=${response.order._id}`);
+  } catch (error) {
+    console.log(error);
   }
+}
+
+
 
   return (
     <Form {...form}>
