@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/lib/features/cartSlice";
-import { useState } from "react";
+import { addToCart } from "@/lib/features/cartSlice"; 
+import { Link } from "react-router";
+
 
 function SimpleProductCard(props) {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function SimpleProductCard(props) {
           className="rounded-2xl w-full h-full object-cover"
         />
       </div>
+
       <div className="mt-2">
         <span className="text-lg sm:text-xl md:text-2xl block">
           {props.product.name}
@@ -23,6 +25,8 @@ function SimpleProductCard(props) {
           ${props.product.price}
         </span>
       </div>
+
+      {/* Add to Cart button */}
       <div>
         <Button
           className={"w-full mt-2"}
@@ -39,6 +43,15 @@ function SimpleProductCard(props) {
         >
           Add To Cart
         </Button>
+      </div>
+
+      {/* View Description button */} 
+      <div>
+        <Link to={`/shop/products/${props.product._id}`}>
+          <Button className="w-full mt-2 bg-gray-900">
+            View Description
+          </Button>
+        </Link>
       </div>
     </div>
   );

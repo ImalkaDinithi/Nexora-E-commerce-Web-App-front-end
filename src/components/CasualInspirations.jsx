@@ -2,10 +2,9 @@ function CasualInspirations() {
   return (
     <section className="px-4 lg:px-16 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 mt-8 md:mt-4 gap-4 md:gap-x-4">
       <div className="col-span-1 md:col-span-2 mb-4 md:mb-0">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Casual Inspirations</h1>
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Casual Inspirations</h1>
         <p className="mt-2 md:mt-4 text-sm sm:text-base">
-          Our favorite combinations for casual outfit that can inspire you to
-          apply on your daily activity.
+          Our top picks for casual outfits to elevate your daily style.
         </p>
         <button className="mt-4 md:mt-8 text-center w-full h-10 md:h-12 rounded-full border border-black flex items-center justify-center text-sm sm:text-base">
           BROWSE INPIRATIONS

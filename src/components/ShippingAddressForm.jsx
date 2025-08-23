@@ -15,6 +15,7 @@ import { useCreateOrderMutation } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { z } from "zod";
 
 const shippingAddresFormSchema = z.object({
@@ -35,6 +36,7 @@ function ShippingAddressForm() {
     },
   });
 
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart.cartItems);
   const [createOrder, { isLoading }] = useCreateOrderMutation();
   console.log(cart);
@@ -48,6 +50,7 @@ function ShippingAddressForm() {
           quantity: item.quantity,
         })),
       }).unwrap();
+      navigate(`/shop/payment?orderId=${order._id}`);
     } catch (error) {
       console.log(error);
     }

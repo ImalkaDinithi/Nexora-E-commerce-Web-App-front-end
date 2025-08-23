@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { Menu, X, ShoppingBag, Search, User } from "lucide-react";
+import { Menu, X, ShoppingBag, Search, User, LayoutDashboard } from "lucide-react";
 import { useSelector } from "react-redux";
 // import { useSelector } from "react-redux";
 import { SignedIn, UserButton, SignedOut } from "@clerk/clerk-react";
@@ -10,6 +10,7 @@ export default function Navigation() {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   // const cartItems = useSelector((state) => state.cart.value);
 
   // Calculate total quantity of items in cart
@@ -29,6 +30,16 @@ export default function Navigation() {
   // Function href close mobile menu
   const closeMobileMenu = () => setIsMenuOpen(false);
 
+  const navItems = [
+    { path: "/shop", label: "Shop" }, // all products
+    { path: "/shop/shoes", label: "Shoes" },
+    { path: "/shop/tshirts", label: "T-Shirts" },
+    { path: "/shop/shorts", label: "Shorts" },
+    { path: "/shop/pants", label: "Pants" },
+    { path: "/shop/socks", label: "Socks" },
+    { path: "/shop/my-orders", label: "My Orders" },
+  ];
+
   return (
     <header className="bg-white border-b border-gray-200 px-4 lg:px-16">
       <div>
@@ -40,42 +51,16 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            {[
-              {
-                path: "/shop/shoes",
-                label: "Shoes",
-              },
-              {
-                path: "/shop/tshirts",
-                label: "T-Shirt",
-              },
-              {
-                path: "/shop/shorts",
-                label: "Shorts",
-              },
-              {
-                path: "/shop/pants",
-                label: "Pants",
-              },
-              {
-                path: "/shop/socks",
-                label: "Socks",
-              },
-            ].map((item) => {
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="font-medium hover:text-gray-600"
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-          <div>
-            <Link to="/admin/products/create">Create Product</Link>
-          </div>
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className="font-medium hover:text-gray-600"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav> 
 
           {/* Icons */}
           <div className="flex items-center space-x-4">
@@ -102,6 +87,42 @@ export default function Navigation() {
               </SignedOut>
             </div>
 
+              {/* Admin Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsAdminOpen(!isAdminOpen)}
+                className="flex items-center gap-2"
+              >
+              <LayoutDashboard size={20} />
+              </button>
+
+              {isAdminOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-50">
+                  <Link
+                    to="/admin/products/create"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    ➕ Create Product
+                  </Link>
+                  <Link
+                    to="/admin/orders"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    📦 View All Orders
+                  </Link>
+                  <Link
+                    to="/admin/sales"
+                    className="block px-4 py-2 hover:bg-gray-100"
+                  >
+                    📊 Sales Dashboard
+                  </Link>
+                </div>
+              )}
+            </div>
+            <div>
+
+            </div>
+
             {/* Mobile menu button */}
             <button
               className="md:hidden p-1"
@@ -118,13 +139,7 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
-            {[
-              { path: "/shop/shoes", label: "Shoes" },
-              { path: "/shop/tshirts", label: "T-Shirt" },
-              { path: "/shop/shorts", label: "Shorts" },
-              { path: "/shop/pants", label: "Pants" },
-              { path: "/shop/socks", label: "Socks" },
-            ].map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}

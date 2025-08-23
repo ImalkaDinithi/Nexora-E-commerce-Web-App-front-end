@@ -16,6 +16,12 @@ import CheckoutPage from "./pages/checkout.page";
 import ProtectedLayout from "./layouts/protected.layout";
 import CreateProductPage from "./pages/create-product-page";
 import AdminProtectedLayout from "./layouts/admin-protected.layout";
+import PaymentPage from "./pages/payment.page";
+import CompletePage from "./pages/complete.page";
+import ProductPage from "./pages/product.page";
+import MyOrdersPage from "./pages/myorders.page.jsx";
+import AdminOrdersPage from "./pages/adminorders.page.jsx";
+import SalesDashboardPage from "./pages/salesdashboard.page";
 
 import { ClerkProvider } from "@clerk/clerk-react";
 
@@ -34,19 +40,29 @@ createRoot(document.getElementById("root")).render(
           <Routes>
             <Route element={<RootLayout />}>
               <Route path="/" element={<HomePage />} />
+              
               <Route path="/shop">
-                <Route path=":category" element={<ShopPage />} />
+                <Route path="/shop/:category" element={<ShopPage />} />
                 <Route path="cart" element={<CartPage />} />
+                <Route path="products/:productId" element={<ProductPage />} />
+                
                 <Route element={<ProtectedLayout />}>
                   <Route path="checkout" element={<CheckoutPage />} />
+                  <Route path="payment" element={<PaymentPage />} />
+                  <Route path="complete" element={<CompletePage />} />
+                  <Route path="my-orders" element={<MyOrdersPage />} />
                 </Route>
               </Route>
+              
               <Route element={<ProtectedLayout />}>
                 <Route element={<AdminProtectedLayout />}>
                   <Route
-                    path="/admin/products/create"
+                    path="/admin/products/create" 
                     element={<CreateProductPage />}
                   />
+                  <Route path="/admin/orders" element={<AdminOrdersPage />} />
+                  <Route path="/admin/sales" element={<SalesDashboardPage />}></Route>
+                  
                 </Route>
               </Route>
             </Route>

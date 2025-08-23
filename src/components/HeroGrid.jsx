@@ -8,13 +8,13 @@ function HeroGrid() {
           alt="hero"
         />
         <div className="absolute top-4 sm:top-8 left-4 sm:left-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white">
-            Color of <br /> Summer
-            <br /> Outfit
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-bold">
+            Bright <br /> Summer
+            <br /> Looks
           </h1>
-          <p className="text-white text-base sm:text-lg md:text-xl mt-2 sm:mt-4">
-            100+ Collections for your <br /> outfit inspirations <br />
-            in this summer
+          <p className="text-white text-base sm:text-xl md:text-2xl lg:text-3xl mt-2 sm:mt-4">
+            100+ Must-Try <br /> Summer Outfits <br />
+            to Inspire You
           </p>
         </div>
       </div>

@@ -2,11 +2,13 @@
    hooks corresponding to the defined endpoints */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 // Define a service using a base URL and expected endpoints
 export const Api = createApi({
   reducerPath: "Api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/api",
+    baseUrl: `${BASE_URL}/api`,
     prepareHeaders: async (headers) => {
       return new Promise((resolve) => {
         async function checkToken() {
@@ -25,7 +27,8 @@ export const Api = createApi({
   }),
   endpoints: (build) => ({
     getAllProducts: build.query({
-      query: () => `/products`,
+      query: ({ category } = {}) =>
+    category ? `/products?categoryId=${category}` : "/products",
     }),
     getProductsBySearch: build.query({
       query: (query) => `/products/search?search=${query}`,
@@ -47,9 +50,27 @@ export const Api = createApi({
         body: order,
       }),
     }),
+    getCheckoutSessionStatus: build.query({
+      query: (sessionId) => `/payments/session-status?session_id=${sessionId}`,
+    }),
+    getUserOrders: build.query({
+      query: () => "/orders/my-orders",
+    }),
+    getAllOrders: build.query({
+      query: () => "/orders",
   }),
+}),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllProductsQuery, useGetProductsBySearchQuery, useCreateOrderMutation, useCreateProductMutation, useGetAllCategoriesQuery } = Api;
+export const {
+  useGetAllProductsQuery,
+  useGetProductsBySearchQuery,
+  useCreateOrderMutation,
+  useGetCheckoutSessionStatusQuery,
+  useCreateProductMutation,
+  useGetAllCategoriesQuery,
+   useGetUserOrdersQuery,
+  useGetAllOrdersQuery,
+} = Api;
