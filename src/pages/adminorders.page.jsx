@@ -33,11 +33,11 @@ function AdminOrdersPage() {
                     ? new Date(order.createdAt).toLocaleString()
                     : "N/A"}
                 </td>
-                <td className="px-4 py-2">${order.total ?? 0}</td>
+                <td className="px-4 py-2">${order.totalPrice ?? 0}</td>
                 <td className="px-4 py-2">
                   <ul className="list-disc list-inside space-y-1">
-                    {order.products?.length ? (
-                      order.products.map((item, index) => (
+                    {order.items?.length ? (
+                      order.items.map((item, index) => (
                         <li key={item.productId?._id || index}>
                           {item.productId?.name || "Unknown"} x {item.quantity} - $
                           {item.productId?.price ? item.productId.price * item.quantity : 0}

@@ -13,16 +13,21 @@ function MyOrdersPage() {
       <h1 className="text-2xl font-bold mb-4">My Orders</h1>
       <ul className="space-y-4">
         {orders.map(order => (
-          <li key={order._id} className="border rounded-lg p-4">
+          <li key={order._id} className="bg-sky-50 border rounded-lg p-4">
             <p><strong>Order ID:</strong> {order._id}</p>
             <p><strong>Date:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-            <p><strong>Total:</strong> ${order.total}</p>
-            <ul className="mt-2">
-              {order.products.map(item => (
-                <li key={item.productId._id}>
-                  {item.productId.name} x {item.quantity} - ${item.productId.price * item.quantity}
-                </li>
-              ))}
+            <p><strong>Total:</strong> ${order.totalPrice}</p>
+           <ul className="mt-2 list-disc list-inside">
+              {order.items && order.items.length > 0 ? (
+                order.items.map((item, index) => (
+                  <li key={item.productId?._id || index}>
+                    {item.productId?.name || "Unknown"} x {item.quantity} - $
+                    {item.productId?.price ? item.productId.price * item.quantity : 0}
+                  </li>
+                ))
+              ) : (
+                <li>No products</li>
+              )}
             </ul>
           </li>
         ))}

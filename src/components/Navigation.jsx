@@ -31,7 +31,7 @@ export default function Navigation() {
   const closeMobileMenu = () => setIsMenuOpen(false);
 
   const navItems = [
-    { path: "/shop", label: "Shop" }, // all products
+    { path: "/shop", label: "Shop" },
     { path: "/shop/shoes", label: "Shoes" },
     { path: "/shop/tshirts", label: "T-Shirts" },
     { path: "/shop/shorts", label: "Shorts" },
