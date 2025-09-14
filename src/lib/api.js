@@ -26,10 +26,11 @@ export const Api = createApi({
     },
   }),
   endpoints: (build) => ({
-    getAllProducts: build.query({
-      query: ({ category } = {}) =>
+getAllProducts: build.query({
+  query: ({ category } = {}) =>
     category ? `/products?categoryId=${category}` : "/products",
-    }),
+}),
+
     getProductsBySearch: build.query({
       query: (query) => `/products/search?search=${query}`,
     }),
